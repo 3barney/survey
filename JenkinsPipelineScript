@@ -1,0 +1,27 @@
+node {
+    stage('SCM Checkout') {
+        git 'https://github.com/3barney/survey'
+    }
+
+    stage('Maven package') {
+        def mavenHome = tool name: 'maven-3', type: 'maven'
+        def mavenCommand = "${mavenHome}/bin/mvn"
+        sh label: '', script: "${mavenCommand} clean package"
+    }
+
+    stage('Build Docker Image') {
+        sh label: '', script: "docker build -t jomo90/survey:1.0.0 ."
+    }
+
+    stage('Push Docker Image to Dhub') {
+        withCredentials([string(credentialsId: 'docker_hub', variable: 'dockerHubPwd')]) {
+            sh label: '', script: "docker login -u jomo90 -p ${dockerHubPwd}"
+        }
+
+        sh label: '', script: "docker push jomo90/survey:1.0.0"
+    }
+
+    stage('Run Docker image locally') {
+        sh label: '', script: "docker run -p 9001:9001 -d --name survey --network=host jomo90/survey:1.0.0"
+    }
+}
