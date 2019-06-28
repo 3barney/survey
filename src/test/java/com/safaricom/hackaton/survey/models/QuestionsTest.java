@@ -10,7 +10,7 @@ public class QuestionsTest {
     private Question question;
 
     @Before
-    private void setUp() throws Exception {
+    public void setUp() throws Exception {
         question = new Question();
         question.setQuestion("Whats my name");
     }
