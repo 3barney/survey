@@ -131,6 +131,7 @@
 					<argLine>-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/0.8.3/org.jacoco.agent-0.8.3-runtime.jar=destfile=${project.build.directory}/jacoco.exec</argLine>
 					<excludes>
 						<exclude>**/*IntegrationTest.java</exclude>
+						<exclude>**/*IT.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
