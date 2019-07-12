@@ -93,6 +93,14 @@
 			<classifier>runtime</classifier>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.lazerycode.jmeter/jmeter-maven-plugin -->
+		<dependency>
+			<groupId>com.lazerycode.jmeter</groupId>
+			<artifactId>jmeter-maven-plugin</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -141,13 +149,46 @@
 				<artifactId>pitest-maven</artifactId>
 				<version>1.4.5</version>
 				<configuration>
+					<targetClasses>
+						<param>com.safaricom.hackaton.survey.models*</param>
+						<param>com.safaricom.hackaton.survey.repositories*</param>
+						<param>com.safaricom.hackaton.survey.services*</param>
+					</targetClasses>
+					<targetTests>
+						<param>com.safaricom.hackaton.survey.models*</param>
+						<param>com.safaricom.hackaton.survey.controllers*</param>
+						<param>com.safaricom.hackaton.survey.repositories*</param>
+						<param>com.safaricom.hackaton.survey.services*</param>
+					</targetTests>
+
 					<excludedTestClasses>
 						<param>*ApplicationTests</param>
-						<param>*IntegrationTest</param>
+						<param>*IT</param>
 					</excludedTestClasses>
+
+					<avoidCallsTo>
+						<avoidCallsTo>java.util.logging</avoidCallsTo>
+						<avoidCallsTo>org.apache.log4j</avoidCallsTo>
+						<avoidCallsTo>org.slf4j</avoidCallsTo>
+						<avoidCallsTo>org.apache.commons.logging</avoidCallsTo>
+					</avoidCallsTo>
+
 					<outputFormats>
 						<outputFormat>XML</outputFormat>
 					</outputFormats>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>2.8.5</version>
+				<configuration>
+					<testResultsTimestamp>false</testResultsTimestamp>
+					<propertiesUser>
+						<host>127.0.0.1</host>
+						<port>9001</port>
+					</propertiesUser>
 				</configuration>
 			</plugin>
 		</plugins>
