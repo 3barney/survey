@@ -182,13 +182,15 @@
 			<plugin>
 				<groupId>com.lazerycode.jmeter</groupId>
 				<artifactId>jmeter-maven-plugin</artifactId>
-				<configuration>
-					<testResultsTimestamp>false</testResultsTimestamp>
-					<propertiesUser>
-						<host>127.0.0.1</host>
-						<port>9001</port>
-					</propertiesUser>
-				</configuration>
+                <version>2.1.0</version>
+				<executions>
+                  <execution>
+                    <id>jmeter-tests</id>
+                    <goals>
+                      <goal>jmeter</goal>
+                    </goals>
+                  </execution>
+                </executions>
 			</plugin>
 		</plugins>
 	</build>
